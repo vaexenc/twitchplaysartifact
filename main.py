@@ -1,13 +1,18 @@
-import time
-import threading
 import queue
-import twitch
-import screen
-import pyautogui
+import sys
+import threading
+import time
 import traceback
+import pyautogui
+import screen
+import twitch
 
-username = "redacted"
-key = "redacted" # http://twitchapps.com/tmi/
+if len(sys.argv) != 3:
+	print("Invalid command line arguments. Please provide username and key (http://twitchapps.com/tmi/).")
+	quit()
+
+username = sys.argv[1]
+key = sys.argv[2] # http://twitchapps.com/tmi/
 adminMode = False
 pyautogui.FAILSAFE = True
 # pyautogui.PAUSE = 0.1
