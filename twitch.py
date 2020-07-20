@@ -1,8 +1,6 @@
 import socket
 import sys
 import re
-import time
-
 
 class Twitch:
 	user = ""
@@ -62,9 +60,9 @@ class Twitch:
 	def twitch_receive_messages(self, amount=1024):
 		# print("receiving...")
 		data = None
-		try: 
+		try:
 			data = self.s.recv(1024)
-		except: 
+		except:
 			return False
 
 		if not data:
@@ -87,9 +85,3 @@ class Twitch:
 	def twitch_send_message(self, message):
 		sendValue = "PRIVMSG #{} :{}{}".format(self.user, message, "\r\n")
 		self.s.send( sendValue.encode("utf-8") )
-
-
-
-
-
-

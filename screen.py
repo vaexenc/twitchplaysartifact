@@ -1,15 +1,9 @@
 from PIL import Image, ImageDraw, ImageFont
-import win32api
-import win32con
 import time
 import pyautogui
 import re
-import cv2
 import os
-import numpy
 import shutil
-
-
 
 globalSleepTime = 1
 
@@ -75,8 +69,6 @@ def generateOverlay(pointsDict, fileName = "overlay unnamed", fontSize = 50, wid
 	# pimage = Image.open(fileName)
 	# image.paste(pimage, (15, 15))
 
-
-
 def changeToOverlay(overlayName):
 	changeToOverlayByRenaming(overlayName)
 
@@ -96,7 +88,6 @@ def changeToOverlayByRenaming(overlayNameToUse):
 
 def changeToOverlayByHotkey(overlayName):
 	pass
-
 
 ##############################################################################
 # MOUSE & KB INPUT
@@ -137,7 +128,6 @@ def click(x, y):
 	# win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x, y, 0, 0)
 	# win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
 
-
 def drag(x1, y1, x2, y2):
 	sleeptime = 0.1
 	pyautogui.mouseDown(x=x1, y=y1)
@@ -156,7 +146,6 @@ def drag(x1, y1, x2, y2):
 	# time.sleep(sleeptime)
 	# win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x2, y2, 0, 0)
 
-
 def press(key):
 	pyautogui.press(key)
 
@@ -168,8 +157,6 @@ def writeToIngameChat(message):
 	press("enter")
 	write(message)
 	press("enter")
-
-
 
 ##############################################################################
 # CHAT MESSAGE COMMANDS
@@ -209,10 +196,9 @@ def checkMessageAndExecuteCommandsDraftMouse(messageString, pointsDict):
 	if match:
 		pass
 
-
 def checkMessageAndExecuteCommandsMouse(messageString, pointsDict):
 	message = messageString.lower()
-	
+
 	patternClick = r"^([a-z]+\d*)$"
 	patternHover = r"^\,([a-z]+\d*)$"
 	patternDrag = r"^([a-z]+\d*)\s+([a-z]+\d*)$"
@@ -221,15 +207,13 @@ def checkMessageAndExecuteCommandsMouse(messageString, pointsDict):
 
 	match = re.match(patternScroll, message)
 	if match:
-		
+
 		command = match.group(1)
-		
+
 		direction = -1 # scroll down, scrollr
-		
+
 		if command == "l":
 			direction = 1
-
-
 
 		click(962, 510)
 		for i in range(4):
@@ -237,7 +221,6 @@ def checkMessageAndExecuteCommandsMouse(messageString, pointsDict):
 			time.sleep(0.1)
 
 		return
-
 
 	match = re.match(patternClick, message)
 	if match:
@@ -282,120 +265,9 @@ def checkMessageAndExecuteCommands(messageString, pointsDict, mouseOrKeyboard="m
 # def somethingsomethingKeyboard(messageString):
 # 	# todo commands max amount!
 # 	c = [
-# 		"up", "down", "left", "right", 
+# 		"up", "down", "left", "right",
 # 		"w", "a", "s", "d",
 # 	]
 
 # def checkMessageAndExecuteCommandsKeyboard(messageString):
 # 	pass
-
-	
-
-
-##############################################################################
-# GAME STATE PSEUDO IMAGE RECOGNITION
-##############################################################################
-
-# matchingMethods = [cv2.TM_CCOEFF, cv2.TM_CCOEFF_NORMED, cv2.TM_CCORR, cv2.TM_CCORR_NORMED, cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]
-# isinstance(img, numpy.ndarray)
-
-def showImage(image):
-	cv2.imshow("image", image)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
-
-def saveImage(image, fileName = "unnamed"):
-	if not os.path.isdir("savedimages"):
-		os.mkdir("savedimages")
-	cv2.imwrite("{}{}{}".format("savedimages/", fileName, ".png"), image)
-
-def returnScreenshot():
-	screenshot = pyautogui.screenshot() # PIL.Image.Image
-	image = cv2.cvtColor(numpy.array(screenshot), cv2.COLOR_RGB2BGR)
-	return image
-	# cv2.cvtColor(s, cv2.COLOR_BGR2GRAY)
-	# cv2.cvtColor(s, cv2.COLOR_RGB2BGR)
-
-
-
-def templateMatchResult(image, template):
-	result = cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
-	min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-	return max_val
-
-
-def templateMatchEndScreen(screenshot):
-	image = screenshot #[0:286]
-	template = cv2.imread("imagerecognition/been.png")
-	return templateMatchResult(image, template)
-
-def isEndState(screenshot):
-	if templateMatchEndScreen(screenshot) > 0.8:
-		return True
-	return False
-
-def isGameState():
-	pass
-
-def isMenuState():
-	pass
-
-
-def detectGameState():
-	screenshot = returnScreenshot()
-	
-	if isEndState(screenshot):
-		return "end"
-	if isMatchState(screenshot):
-		return "match"
-	if isMenuState(screenshot):
-		return "menu"
-
-
-
-
-def currentStateAction(currentState):
-	if False:
-		pass
-	elif currentState == "game":
-		if isEndScreen():
-			transitionToMenu()
-			return "menu"
-	elif currentState == "menu":
-		pass
-
-	# elif currentState == "game":
-
-	return currentState
-
-def transitionToMenu():
-	pass
-
-
-
-def evaluateScreenshot_(screenshot):
-	pass
-	return "match"
-	return "menu"
-
-
-
-
-
-
-def gameStateChange_():
-	pass
-
-def templateMatch_(image, template):
-	if not isinstance(image, numpy.ndarray) or not isinstance(template, numpy.ndarray):
-		raise Exception("wrong type")
-
-	img = cv2.imread("testscreen.png", 0)
-	template = cv2.imread("1.png", 0)
-	# img2 = img.copy()
-	# w, h = template.shape[::-1]
-	result = cv2.matchTemplate(img,template,methods[1])
-
-
-
-

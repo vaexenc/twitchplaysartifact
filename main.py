@@ -1,49 +1,3 @@
-"""
-NKK00KK0000000000000000000000KXWMMWX0000000000000000000000000000000000000000000000000000000000000KKK
-XkkOOOkOOOOOOkOkkkkkkkkkkkkkkkk0NMXkkkkkkkkkkxxxxxxxkxxxxxxxddddddddddddddddddddddddddddddddddoddood
-W0xxkOOOOOOOOkkkkkkkkkkkxxxxxxxxKWXkdxddddoooooooooolllllllcccccccccc:::::::::::::::::::::;;;;;;,';x
-MWKxdxOOkkkkkkkkkxxxxxxxddddddddONW0xdddoooollllllllcccllccccccc:::::::;;;;;;;;;;;;;;;;;;;;;;;,'';xX
-MMWKxdxkOkkkkkkkkkkkxxxxxdddddddx0WNkdooooooooolllllllllccccccc:::::::::;;;;;;;;;;;;;;;;;;;;;,'':xNM
-MMMMXxodxkkkkkkkkkkxxxxxxddddddddkXWKdolooooooolllllllllccccccccc:::::::::::::;;;;;;;;;;;;;;,',cONMM
-MMMMMXkodxkxxkkkkxxxxxxddddddddddd0WNkooooooooollloollllccclcccccccccc::::::::;;;;;;;;;;:;;;,,l0WMMM
-MMMMMMNkooxkkkkkkxxxxxxddddddddddoxXWXOxddooooooollllllllllllcccccccc::::::::;;;;;;:;;;;:;,',oKWMMMM
-MMMMMMMNOooxkkxxxxxxxxxxxxxddddddddONMWNXK00kxxdollllllllllllllcccccc:::::::::::::::;;;;;,,;dXWMMMMM
-MMMMMMMMW0dodxxxxxxxxxxxxxdddddodddxKMMNKKKXNNNNXK00Okxdollllcccccc::c::::::::::::::;;;;,,:kNMMMMMMM
-MMMMMMMMMWKdloxxxxxxxdddddddooooooddONW0xdddxxkO0KKXXNNNXK00kxdollccc::::::::::::;;;;,,,,:kNMMMMMMMM
-MMMMMMMMMMWKdlodxxxxxxdddddooooooooodKWXxooooooooooddxkkO0KXNNNNXK0Okxdoolc::::;;;;;,;,,cONMMMMMMMMM
-MMMMMMMMMMMWXxlldxxddddddooooooooooddkNWOoolllllllllllllllodxxkO0XWMMWNNXKOkxdolc:;;;,,l0WMMMMMMMMMM
-MMMMMMMMMMMMMXklloddoooooooooooooooood0WXxllllllllllcccccccccclookNMWX000KXXNNNXK0OkxdkKWMMMMMMMMMMM
-MMMMMMMMMMMMMMNklclodooooodoooooooooooxXW0olllllllccccccccc:::ldOXNKkdollloodxkO0KXNWWWMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMNOlclooooooooooooolllloo0WNklllcccccccc::::ccldOXNKkoc:;;;;;;:ccccccdKMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMW0l:cooooooooooolllllloxXWKdllcccccccc::ccloOXWXkoc:;;;;;;;;::;;;;:xXMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMWKo:clooooooollllllllooOWNkllcccccc::cccoOXWXkdl::;;;;;;;;;;;,,,:kNMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMWKd::lollllllllllllllldKMKdccc::::::coOXWXkocc:;;;;;;;;;;;,,,,cONMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMXx::clllllllllllccclokNWklc:::cccokXWXOdc:::;;;;;;;;,,,,,,;l0WMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMNxc;clllllllllcccccldKWXdcccclokXNXOolc:;;;;;;;;;;;,,,,,;oKWMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMNOc;:clllollcccccclokNWOoook0KNXOdc::;;;;;;;;;;;::;;,,;dKWMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMW0l;:clloolcccccclld0WNK0XNWXOdlc:;;;;;;;;::;;:::;,,:xXMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMW0l;;:cccccccc:::cokNMMWXOxdlc:;;;;;;;;;;;:;;;;,,,:kNMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMWKo;;:cc::cc:::ccdONWXOdcc::;;;;;;;;;;;;;;;;,,,,ckNMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMWXd:,;::::cccloxKNXOdc::;;;;;;;;;;;,,,,;;;,,',cONMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMXx:,;::cccokKNNOdc::;;;;;;;;;,,,,,,,;;,,,',l0WMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMNkc,;:clxKWNOdc:::;;;;;;;;,,,,,,,,,,,,'',oKWMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW0l:lxKNN0xl:::;;;;;;;;;;,,,,,,,,,,,'',oKMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXKXNN0xol:;;;;;;;;;;;;,,,,,,,,,,,'.,dXMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWKxlc:::;;;;;;;;;;,,,,,,,,,,,,'.;xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNkc;;;::;;;;;;;;;;,,,,,,,,,,,..:kNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMXx:,;;;;;;;;;;;;;;;,,,,,,,,..:OWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNkc,,;;;;;;;;;;;,,,,,,,,'..cOWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWOc,,;;;;;;;;;,,,,,,,,'.'l0WMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW0l,,,;;,,,;;;;;;;,,'.'oKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW0o,',;,;;;;;;;,,,'.'oXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWKo,',,;;;:;;,,,..;xXMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXx;',,;;;;;;,..;kNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNx:',,;;;;,..cOWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNk:',;;;,.'l0WMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNOc,','.,dXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW0l'..,xXMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWOc;:dXMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-"""
 import time
 import threading
 import queue
@@ -76,24 +30,20 @@ pointsEnemyImprovementsL = screen.createPointsAlongLine(7, 610, 824, 180)
 pointsEnemyImprovementsR = screen.createPointsAlongLine(7, 1095, 1350, 180)
 # pointEnemyTower = screen.createPoint(959, 143)
 
-
 pointsShop = screen.createPointsAlongLine(3, 690, 1110, 700)
 
 # singlePoint = screen.createPoint(100, 100)
 
-
-pointsDict = { 
-	"a": pointsAllyLaneCardsActives + pointsAllyLaneCardsItems, 
-	"h": pointsHand, 
+pointsDict = {
+	"a": pointsAllyLaneCardsActives + pointsAllyLaneCardsItems,
+	"h": pointsHand,
 	"k": pointsAllyImprovementsAndDeploy, #pointsAllyImprovementsL + pointsAllyImprovementsR,
 
-	"b": pointsEnemyLaneCards, 
+	"b": pointsEnemyLaneCards,
 	"j": pointsEnemyImprovementsL + pointsEnemyImprovementsR,
 	"s": pointsShop,
 
-
 	"pass": screen.createPoint(1570, 915),
-
 
 	"pp": screen.createPoint(1200, 834),
 	"ll": screen.createPoint(18, 489),
@@ -106,21 +56,16 @@ pointsDict = {
 }
 
 pointsDictMenu = {
-	
+
 }
 
 # pointsDict.update(pntdct)
 # for i, v in pointsDict.items(): pass
 
-
-
 # screen.generateOverlay(pointsDict, fontSize = 22, fileName = "overlay")
 # screen.checkMessageAndExecuteCommands( "scrolll", pointsDict )
 # screen.checkMessageAndExecuteCommands( "scrollr", pointsDict )
 # quit()
-
-
-
 
 ##############################################################################
 # TWITCH, THREAD
@@ -165,10 +110,10 @@ while 1:
 		# screen.currentStateAction(state)
 
 		# MESSAGES ######
-		
+
 		# with messageQueue.mutex:
 		# 	messageQueue.queue.clear()
-			
+
 		while messageQueue.queue:
 			messages = messageQueue.get()
 			for message in messages:
@@ -195,12 +140,11 @@ while 1:
 
 screen.changeToOverlay("blank")
 
-
 ######################################
 # OTHER WAYS TO KILL THREAD AND PROGRAM
 # something like that anyway
 # while 1:
-# 	try: 
+# 	try:
 # 		if input() == "kill":
 # 			break
 # 	except:
@@ -211,13 +155,3 @@ screen.changeToOverlay("blank")
 #	finally:
 #		dead = True
 ######################################
-
-
-
-
-
-
-
-
-
-
