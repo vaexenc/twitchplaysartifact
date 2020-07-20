@@ -1,9 +1,9 @@
-from PIL import Image, ImageDraw, ImageFont
-import time
-import pyautogui
-import re
 import os
+import re
 import shutil
+import time
+from PIL import Image, ImageDraw, ImageFont
+import pyautogui
 
 globalSleepTime = 1
 

@@ -1,6 +1,6 @@
+import re
 import socket
 import sys
-import re
 
 class Twitch:
 	user = ""
