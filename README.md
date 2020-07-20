@@ -4,7 +4,7 @@ Allowed twitch users to type commands in stream chat to control a game of [Artif
 
 ## Videos
 
-As a side note, the stream ran during the glorious days of the [Artifact Twitch Raids](https://knowyourmeme.com/memes/events/artifact-twitch-raids). Certain creative decisions have been made for the sake of people's entertainment and for a higher level of thumbnail clickbait.
+As a side note, the stream ran during the glorious days of the [Artifact Twitch Raids](https://knowyourmeme.com/memes/events/artifact-twitch-raids) of 2019. Certain creative decisions have been made for the sake of people's entertainment and for a higher level of thumbnail clickbait.
 
 [VOD 1](#a) TODO
 
