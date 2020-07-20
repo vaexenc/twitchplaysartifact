@@ -13,9 +13,9 @@ if len(sys.argv) != 3:
 
 username = sys.argv[1]
 key = sys.argv[2] # http://twitchapps.com/tmi/
-adminMode = False
+
+ignoreMessagesOfOthers = False
 pyautogui.FAILSAFE = True
-# pyautogui.PAUSE = 0.1
 
 ##############################################################################
 # SET UP CLICK POINTS
@@ -56,20 +56,9 @@ pointsDict = {
 	"sh": screen.createPoint(757, 290),
 	"cl": screen.createPoint(795, 652),
 	"pr": screen.createPoint(1100, 652),
-
-	# "test": screen.createPoint(100, 100),
 }
 
-pointsDictMenu = {
-
-}
-
-# pointsDict.update(pntdct)
-# for i, v in pointsDict.items(): pass
-
-# screen.generateOverlay(pointsDict, fontSize = 22, fileName = "overlay")
-# screen.checkMessageAndExecuteCommands( "scrolll", pointsDict )
-# screen.checkMessageAndExecuteCommands( "scrollr", pointsDict )
+# screen.generateOverlay(pointsDict, fontSize=22, fileName="overlay")
 # quit()
 
 ##############################################################################
@@ -87,7 +76,6 @@ def twitchThreadFunction():
 		if newMessages:
 			messageQueue.put(newMessages)
 		time.sleep(0.001)
-	# notes: lock.acquire(), lock.release()
 
 twitchThread = threading.Thread(target=twitchThreadFunction)
 twitchThread.daemon = True
@@ -97,66 +85,41 @@ twitchThread.daemon = True
 ##############################################################################
 
 print("### TWITCH PLAYS ARTIFACT ###")
-# print("get ready..."); time.sleep(4);
 
 t.twitch_connect(username, key)
 twitchThread.start()
 t.twitch_send_message("[ ✔️ Manually starting script.]")
 
-# state = screen.detectGameState(screenshot)
-# state = ""
 currentPointsDict = pointsDict
 
 screen.changeToOverlay("overlay")
 
+def on_shutdown():
+	t.twitch_send_message("[ ❌ Manually shutting down script.]")
+	time.sleep(1) # because message doesn't get sent otherwise?
+
 while 1:
 	try:
-		# STATE ######
-		# screen.currentStateAction(state)
-
-		# MESSAGES ######
-
-		# with messageQueue.mutex:
-		# 	messageQueue.queue.clear()
-
 		while messageQueue.queue:
 			messages = messageQueue.get()
 			for message in messages:
-				if adminMode and message["username"] == username or not adminMode:
+				if ignoreMessagesOfOthers and message["username"] == username or not ignoreMessagesOfOthers:
 					print(message["username"], message["message"])
 					screen.checkMessageAndExecuteCommands(message["message"], currentPointsDict)
 			time.sleep(0.001)
 		time.sleep(0.001)
 	except KeyboardInterrupt:
-		t.twitch_send_message("[ ❌ Manually shutting down script.]")
-		time.sleep(1) # because message doesn't get sent otherwise...?
+		on_shutdown()
 		break
 	except pyautogui.FailSafeException:
 		print(traceback.format_exc())
-		t.twitch_send_message("[ ❌ Manually shutting down script.]")
-		time.sleep(1)
+		on_shutdown()
 		break
 	except Exception:
 		print("\n\n=====================================\n")
 		print(traceback.format_exc())
-		t.twitch_send_message("[ ❌❌❌ Shutting down script due to unforeseen error.]")
+		t.twitch_send_message("[ ❌❌❌ Shutting down script due to unexpected error.]")
 		time.sleep(3)
 		break
 
 screen.changeToOverlay("blank")
-
-######################################
-# OTHER WAYS TO KILL THREAD AND PROGRAM
-# something like that anyway
-# while 1:
-# 	try:
-# 		if input() == "kill":
-# 			break
-# 	except:
-# 		dead = True
-# 		time.sleep(0.01)
-# 		# t1.join() ??
-# 		break
-#	finally:
-#		dead = True
-######################################
