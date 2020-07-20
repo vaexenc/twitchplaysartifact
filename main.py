@@ -9,7 +9,7 @@ import twitch
 
 if len(sys.argv) != 3:
 	print("Invalid command line arguments. Please provide username and key (http://twitchapps.com/tmi/).")
-	quit()
+	sys.exit()
 
 username = sys.argv[1]
 key = sys.argv[2] # http://twitchapps.com/tmi/
@@ -21,52 +21,40 @@ pyautogui.FAILSAFE = True
 # SET UP CLICK POINTS
 ##############################################################################
 
-# w, h = 1920, 1080
+# we assume a resolution of 1920x1080
 pointsAllyLaneCardsActives = screen.createPointsAlongLine(34, 232, 1690, 724)
 pointsAllyLaneCardsItems = screen.createPointsAlongLine(34, 232, 1690, 588)
-pointsAllyImprovementsL = screen.createPointsAlongLine(8, 473, 793, 935)
-pointsAllyImprovementsR = screen.createPointsAlongLine(8, 1126, 1440, 935)
 pointsAllyImprovementsAndDeploy = screen.createPointsAlongLine(16, 473, 1440, 935)
-# pointAllyTower = screen.createPoint(959, 866)
-pointsHand = screen.createPointsAlongLine(20, 465, 1414, 1055)
-
 pointsEnemyLaneCards = screen.createPointsAlongLine(14, 290, 1600, 362)
 pointsEnemyImprovementsL = screen.createPointsAlongLine(7, 610, 824, 180)
 pointsEnemyImprovementsR = screen.createPointsAlongLine(7, 1095, 1350, 180)
-# pointEnemyTower = screen.createPoint(959, 143)
-
+pointsHand = screen.createPointsAlongLine(20, 465, 1414, 1055)
 pointsShop = screen.createPointsAlongLine(3, 690, 1110, 700)
-
-# singlePoint = screen.createPoint(100, 100)
 
 pointsDict = {
 	"a": pointsAllyLaneCardsActives + pointsAllyLaneCardsItems,
 	"h": pointsHand,
-	"k": pointsAllyImprovementsAndDeploy, # pointsAllyImprovementsL + pointsAllyImprovementsR,
-
+	"k": pointsAllyImprovementsAndDeploy,
 	"b": pointsEnemyLaneCards,
 	"j": pointsEnemyImprovementsL + pointsEnemyImprovementsR,
 	"s": pointsShop,
-
-	"pass": screen.createPoint(1570, 915),
-
 	"pp": screen.createPoint(1200, 834),
 	"ll": screen.createPoint(18, 489),
 	"lr": screen.createPoint(1901, 489),
 	"sh": screen.createPoint(757, 290),
 	"cl": screen.createPoint(795, 652),
 	"pr": screen.createPoint(1100, 652),
+	"pass": screen.createPoint(1570, 915),
 }
 
 # screen.generateOverlay(pointsDict, fontSize=22, fileName="overlay")
-# quit()
+# sys.exit()
 
 ##############################################################################
 # TWITCH, THREAD
 ##############################################################################
 
 messageQueue = queue.Queue()
-
 t = twitch.Twitch()
 
 def twitchThreadFunction():
@@ -85,14 +73,12 @@ twitchThread.daemon = True
 ##############################################################################
 
 print("### TWITCH PLAYS ARTIFACT ###")
-
 t.connect(username, key)
 twitchThread.start()
 t.send_message("[ ✔️ Manually starting script.]")
+screen.changeToOverlay("overlay")
 
 currentPointsDict = pointsDict
-
-screen.changeToOverlay("overlay")
 
 def on_shutdown():
 	t.send_message("[ ❌ Manually shutting down script.]")
