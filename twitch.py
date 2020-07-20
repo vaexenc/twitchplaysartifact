@@ -8,8 +8,10 @@ class Twitch:
 	s = None
 
 	def twitch_login_status(self, data):
-		if not re.match(r'^:(testserver\.local|tmi\.twitch\.tv) NOTICE \* :Login unsuccessful\r\n$'.encode("utf-8"), data): return True
-		else: return False
+		if not re.match(r'^:(testserver\.local|tmi\.twitch\.tv) NOTICE \* :Login unsuccessful\r\n$'.encode("utf-8"), data):
+			return True
+		else:
+			return False
 
 	def twitch_connect(self, user, key):
 		self.user = user
@@ -22,7 +24,7 @@ class Twitch:
 		connect_port = 6667
 		try:
 			s.connect((connect_host, connect_port))
-		except:
+		except Exception:
 			print("Failed to connect to twitch")
 			sys.exit()
 		print("Connected to twitch")
@@ -62,7 +64,7 @@ class Twitch:
 		data = None
 		try:
 			data = self.s.recv(1024)
-		except:
+		except Exception:
 			return False
 
 		if not data:
@@ -71,7 +73,7 @@ class Twitch:
 			return None
 
 		if self.check_has_ping(data):
-			self.s.send( ("PONG :tmi.twitch.tv\r\n").encode("utf-8") ) #b"PONG :tmi.twitch.tv\r\n" ???
+			self.s.send(("PONG :tmi.twitch.tv\r\n").encode("utf-8")) # b"PONG :tmi.twitch.tv\r\n" ???
 			return False
 
 		if self.check_has_message(data):
@@ -79,9 +81,9 @@ class Twitch:
 			# UnicodeDecodeError: 'utf-8' codec can't decode bytes in position 961-962: unexpected end of data # todo: is it fixed yet
 			try: # todo: does this even return more than 1 message
 				return [self.parse_message(line) for line in filter(None, data.split('\r\n'.encode("utf-8")))] # todo: why is this shit in a list and shit
-			except:
+			except Exception:
 				return False
 
 	def twitch_send_message(self, message):
 		sendValue = "PRIVMSG #{} :{}{}".format(self.user, message, "\r\n")
-		self.s.send( sendValue.encode("utf-8") )
+		self.s.send(sendValue.encode("utf-8"))

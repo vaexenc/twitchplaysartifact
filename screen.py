@@ -11,7 +11,7 @@ globalSleepTime = 1
 # CLICK POINTS, STREAM OVERLAY
 ##############################################################################
 
-def createPointsAlongLine(numberOfPoints, start, end, thatOtherCoordinate, spaceBetweenPoints = None, vertical = False):
+def createPointsAlongLine(numberOfPoints, start, end, thatOtherCoordinate, spaceBetweenPoints=None, vertical=False):
 	pointsList = []
 
 	if not spaceBetweenPoints:
@@ -23,18 +23,18 @@ def createPointsAlongLine(numberOfPoints, start, end, thatOtherCoordinate, space
 		y = thatOtherCoordinate
 		if vertical:
 			x, y = y, x
-		pointsList.append( (int(x), int(y)) )
+		pointsList.append((int(x), int(y)))
 
 	return pointsList
 
 def createPoint(x, y):
 	return [(int(x), int(y))]
 
-def generateOverlay(pointsDict, fileName = "overlay unnamed", fontSize = 50, width = 1920, height = 1080):
+def generateOverlay(pointsDict, fileName="overlay unnamed", fontSize=50, width=1920, height=1080):
 	if width/height != 1920/1080:
-		error("unsupported ratio")
+		raise Exception("unsupported ratio")
 
-	image = Image.new('RGBA', (width, height), (0,0,0,0))
+	image = Image.new('RGBA', (width, height), (0, 0, 0, 0))
 	font = ImageFont.truetype("radiance-bold.ttf", fontSize)
 
 	d = ImageDraw.Draw(image)
@@ -50,20 +50,20 @@ def generateOverlay(pointsDict, fileName = "overlay unnamed", fontSize = 50, wid
 			if len(pointsSet) > 1:
 				number = i+1
 			text = "{}{}".format(letter.upper(), number)
-			textWidth, textHeight = d.textsize(text, font = font)
+			textWidth, textHeight = d.textsize(text, font=font)
 			textX = x - textWidth * 0.5
 			textY = y - textHeight * 0.5
 			textXi = int(textX)
 			textYi = int(textY)
 			# d.line((x, y-crossLength, x, y+crossLength), width = crossWidth)
 			# d.line((x-crossLength, y, x+crossLength, y), width = crossWidth)
-			d.text( (textXi + textShadowDistance, textYi + textShadowDistance*1.05 ), text, font = font, fill = (0, 0, 0))
-			d.text( (textXi, textYi) , text, font = font, fill = (255, 255, 255) )
+			d.text((textXi + textShadowDistance, textYi + textShadowDistance*1.05), text, font=font, fill=(0, 0, 0))
+			d.text((textXi, textYi), text, font=font, fill=(255, 255, 255))
 
 	if not os.path.isdir("overlays"):
 		os.mkdir("overlays")
 
-	image.save( "{}{}{}".format("overlays/", fileName, ".png") )
+	image.save("{}{}{}".format("overlays/", fileName, ".png"))
 	# -- notes ---------------------------
 	# imageData = list(image.getdata())
 	# pimage = Image.open(fileName)
@@ -170,7 +170,7 @@ def singleCommandStringSeperator(commandString):
 
 	if match:
 		if match.group("number"):
-			return ( match.group("letters"), match.group("number") )
+			return (match.group("letters"), match.group("number"))
 		else:
 			return match.group("letters")
 
@@ -230,7 +230,7 @@ def checkMessageAndExecuteCommandsMouse(messageString, pointsDict):
 		if point:
 			x, y = point
 			click(x, y)
-			return ( x, y )
+			return (x, y)
 
 	match = re.match(patternHover, message)
 	if match:
@@ -240,7 +240,7 @@ def checkMessageAndExecuteCommandsMouse(messageString, pointsDict):
 		if point:
 			x, y = point
 			hover(x, y)
-			return ( x, y )
+			return (x, y)
 
 	match = re.match(patternDrag, message)
 	if match:
@@ -254,7 +254,7 @@ def checkMessageAndExecuteCommandsMouse(messageString, pointsDict):
 			x1, y1 = point1
 			x2, y2 = point2
 			drag(x1, y1, x2, y2)
-			return ( (x1, y1), (x2, y2) )
+			return ((x1, y1), (x2, y2))
 
 def checkMessageAndExecuteCommands(messageString, pointsDict, mouseOrKeyboard="mouse"):
 	if mouseOrKeyboard == "mouse":

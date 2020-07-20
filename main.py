@@ -17,7 +17,7 @@ pyautogui.FAILSAFE = True
 ##############################################################################
 
 # w, h = 1920, 1080
-pointsAllyLaneCardsActives = screen.createPointsAlongLine(34, 232, 1690, 724) #34, 232, 1690, 724
+pointsAllyLaneCardsActives = screen.createPointsAlongLine(34, 232, 1690, 724)
 pointsAllyLaneCardsItems = screen.createPointsAlongLine(34, 232, 1690, 588)
 pointsAllyImprovementsL = screen.createPointsAlongLine(8, 473, 793, 935)
 pointsAllyImprovementsR = screen.createPointsAlongLine(8, 1126, 1440, 935)
@@ -37,7 +37,7 @@ pointsShop = screen.createPointsAlongLine(3, 690, 1110, 700)
 pointsDict = {
 	"a": pointsAllyLaneCardsActives + pointsAllyLaneCardsItems,
 	"h": pointsHand,
-	"k": pointsAllyImprovementsAndDeploy, #pointsAllyImprovementsL + pointsAllyImprovementsR,
+	"k": pointsAllyImprovementsAndDeploy, # pointsAllyImprovementsL + pointsAllyImprovementsR,
 
 	"b": pointsEnemyLaneCards,
 	"j": pointsEnemyImprovementsL + pointsEnemyImprovementsR,
@@ -50,7 +50,7 @@ pointsDict = {
 	"lr": screen.createPoint(1901, 489),
 	"sh": screen.createPoint(757, 290),
 	"cl": screen.createPoint(795, 652),
-	"pr": screen.createPoint(1100 , 652),
+	"pr": screen.createPoint(1100, 652),
 
 	# "test": screen.createPoint(100, 100),
 }
@@ -118,22 +118,22 @@ while 1:
 			messages = messageQueue.get()
 			for message in messages:
 				if adminMode and message["username"] == username or not adminMode:
-					print( message["username"], message["message"] )
-					screen.checkMessageAndExecuteCommands( message["message"], currentPointsDict )
+					print(message["username"], message["message"])
+					screen.checkMessageAndExecuteCommands(message["message"], currentPointsDict)
 			time.sleep(0.001)
 		time.sleep(0.001)
-	except KeyboardInterrupt as e:
+	except KeyboardInterrupt:
 		t.twitch_send_message("[ ❌ Manually shutting down script.]")
 		time.sleep(1) # because message doesn't get sent otherwise...?
 		break
-	except pyautogui.FailSafeException as e:
-		print( traceback.format_exc() )
+	except pyautogui.FailSafeException:
+		print(traceback.format_exc())
 		t.twitch_send_message("[ ❌ Manually shutting down script.]")
 		time.sleep(1)
 		break
-	except:
+	except Exception:
 		print("\n\n=====================================\n")
-		print( traceback.format_exc() )
+		print(traceback.format_exc())
 		t.twitch_send_message("[ ❌❌❌ Shutting down script due to unforeseen error.]")
 		time.sleep(3)
 		break
