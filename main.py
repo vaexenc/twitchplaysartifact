@@ -4,6 +4,7 @@ import threading
 import time
 import traceback
 import pyautogui
+import points
 import screen
 import twitch
 
@@ -16,39 +17,6 @@ key = sys.argv[2] # http://twitchapps.com/tmi/
 
 ignoreMessagesOfOthers = False
 pyautogui.FAILSAFE = True
-
-##############################################################################
-# SET UP CLICK POINTS
-##############################################################################
-
-# we assume a resolution of 1920x1080
-pointsAllyLaneCardsActives = screen.createPointsAlongLine(34, 232, 1690, 724)
-pointsAllyLaneCardsItems = screen.createPointsAlongLine(34, 232, 1690, 588)
-pointsAllyImprovementsAndDeploy = screen.createPointsAlongLine(16, 473, 1440, 935)
-pointsEnemyLaneCards = screen.createPointsAlongLine(14, 290, 1600, 362)
-pointsEnemyImprovementsL = screen.createPointsAlongLine(7, 610, 824, 180)
-pointsEnemyImprovementsR = screen.createPointsAlongLine(7, 1095, 1350, 180)
-pointsHand = screen.createPointsAlongLine(20, 465, 1414, 1055)
-pointsShop = screen.createPointsAlongLine(3, 690, 1110, 700)
-
-pointsDict = {
-	"a": pointsAllyLaneCardsActives + pointsAllyLaneCardsItems,
-	"h": pointsHand,
-	"k": pointsAllyImprovementsAndDeploy,
-	"b": pointsEnemyLaneCards,
-	"j": pointsEnemyImprovementsL + pointsEnemyImprovementsR,
-	"s": pointsShop,
-	"pp": screen.createPoint(1200, 834),
-	"ll": screen.createPoint(18, 489),
-	"lr": screen.createPoint(1901, 489),
-	"sh": screen.createPoint(757, 290),
-	"cl": screen.createPoint(795, 652),
-	"pr": screen.createPoint(1100, 652),
-	"pass": screen.createPoint(1570, 915),
-}
-
-# screen.generateOverlay(pointsDict, fontSize=22, fileName="overlay")
-# sys.exit()
 
 ##############################################################################
 # TWITCH, THREAD
@@ -78,8 +46,6 @@ twitchThread.start()
 t.sendMessage("[ ✔️ Manually starting script.]")
 screen.changeToOverlay("overlay")
 
-currentPointsDict = pointsDict
-
 def onShutdown():
 	t.sendMessage("[ ❌ Manually shutting down script.]")
 	time.sleep(1) # because message doesn't get sent otherwise?
@@ -91,7 +57,7 @@ while 1:
 			for message in messages:
 				if ignoreMessagesOfOthers and message["username"] == username or not ignoreMessagesOfOthers:
 					print(message["username"], message["message"])
-					screen.checkMessageAndExecuteCommands(message["message"], currentPointsDict)
+					screen.checkMessageAndExecuteCommands(message["message"], points.points)
 			time.sleep(0.001)
 		time.sleep(0.001)
 	except KeyboardInterrupt:
