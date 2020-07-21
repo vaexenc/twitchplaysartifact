@@ -1,4 +1,4 @@
-# i'm not sure how everything here works, i took the basis of this code from somewhere and did a major overhaul on it
+# i'm not sure how everything here works, i had to take the basis of this code from somewhere and did a major overhaul on it
 
 import re
 import socket

@@ -1,6 +1,6 @@
 # Twitch Plays Artifact
 
-Allowed twitch users to type commands in stream chat to control a game of [Artifact](https://store.steampowered.com/app/583950/Artifact/). They even managed to beat the AI sometimes!
+Just a small project that allowed twitch users to type commands in stream chat to control a game of [Artifact](https://store.steampowered.com/app/583950/Artifact/). They even managed to beat the AI sometimes!
 
 ## Videos
 
