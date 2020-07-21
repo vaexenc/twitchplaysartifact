@@ -23,12 +23,11 @@ pyautogui.FAILSAFE = True
 ##############################################################################
 
 messageQueue = queue.Queue()
-t = twitch.Twitch()
+twitchObj = twitch.Twitch()
 
 def twitchThreadFunction():
-	global messageQueue
 	while 1:
-		newMessages = t.receiveMessages()
+		newMessages = twitchObj.receiveMessages()
 		if newMessages:
 			messageQueue.put(newMessages)
 		time.sleep(0.001)
@@ -37,17 +36,17 @@ twitchThread = threading.Thread(target=twitchThreadFunction)
 twitchThread.daemon = True
 
 ##############################################################################
-# SHOWTIME
+# GO LIVE
 ##############################################################################
 
 print("### TWITCH PLAYS ARTIFACT ###")
-t.connect(username, key)
+twitchObj.connect(username, key)
 twitchThread.start()
-t.sendMessage("[ ✔️ Manually starting script.]")
+twitchObj.sendMessage("[ ✔️ Manually starting script.]")
 screen.changeToOverlay("overlay")
 
 def onShutdown():
-	t.sendMessage("[ ❌ Manually shutting down script.]")
+	twitchObj.sendMessage("[ ❌ Manually shutting down script.]")
 	time.sleep(1) # because message doesn't get sent otherwise?
 
 while 1:
@@ -70,7 +69,7 @@ while 1:
 	except Exception:
 		print("\n\n=====================================\n")
 		print(traceback.format_exc())
-		t.sendMessage("[ ❌❌❌ Shutting down script due to unexpected error.]")
+		twitchObj.sendMessage("[ ❌❌❌ Shutting down script due to unexpected error.]")
 		time.sleep(3)
 		break
 
