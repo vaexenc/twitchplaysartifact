@@ -8,7 +8,7 @@ import pyautogui
 globalSleepTime = 1
 
 ##############################################################################
-# CLICK POINTS, STREAM OVERLAY
+# MOUSE POSITION POINTS, STREAM OVERLAY
 ##############################################################################
 
 def createPointsAlongLine(numberOfPoints, start, end, thatOtherCoordinate, spaceBetweenPoints=None, vertical=False):
@@ -35,86 +35,40 @@ def generateOverlay(pointsDict, fileName="overlay unnamed", fontSize=50, width=1
 		raise Exception("unsupported ratio")
 
 	image = Image.new('RGBA', (width, height), (0, 0, 0, 0))
-	font = ImageFont.truetype("radiance-bold.ttf", fontSize)
+	draw = ImageDraw.Draw(image)
 
-	d = ImageDraw.Draw(image)
-
-	# crossLength = 12
-	# crossWidth = 2
-	textShadowDistance = fontSize*0.15
-	for letter, pointsSet in pointsDict.items():
-		number = ""
-		for i, point in enumerate(pointsSet):
+	for textPre, points in pointsDict.items():
+		for i, point in enumerate(points):
+			number = ""
 			x, y = point
-			# if only 1 point
-			if len(pointsSet) > 1:
+			if len(points) > 1:
 				number = i+1
-			text = "{}{}".format(letter.upper(), number)
-			textWidth, textHeight = d.textsize(text, font=font)
+			text = "{}{}".format(textPre.upper(), number)
+			font = ImageFont.truetype("radiance-bold.ttf", fontSize)
+			textWidth, textHeight = draw.textsize(text, font=font)
 			textX = x - textWidth * 0.5
 			textY = y - textHeight * 0.5
-			textXi = int(textX)
-			textYi = int(textY)
-			# d.line((x, y-crossLength, x, y+crossLength), width = crossWidth)
-			# d.line((x-crossLength, y, x+crossLength, y), width = crossWidth)
-			d.text((textXi + textShadowDistance, textYi + textShadowDistance*1.05), text, font=font, fill=(0, 0, 0))
-			d.text((textXi, textYi), text, font=font, fill=(255, 255, 255))
+			textXint = int(textX)
+			textYint = int(textY)
+			textShadowDistance = fontSize*0.15
+			draw.text((textXint + textShadowDistance, textYint + textShadowDistance*1.05), text, font=font, fill=(0, 0, 0))
+			draw.text((textXint, textYint), text, font=font, fill=(255, 255, 255))
 
 	if not os.path.isdir("overlays"):
 		os.mkdir("overlays")
 
 	image.save("{}{}{}".format("overlays/", fileName, ".png"))
-	# -- notes ---------------------------
-	# imageData = list(image.getdata())
-	# pimage = Image.open(fileName)
-	# image.paste(pimage, (15, 15))
 
 def changeToOverlay(overlayName):
-	changeToOverlayByRenaming(overlayName)
-
-def changeToOverlayByRenaming(overlayNameToUse):
-	###########
-	# os.rename(old, new)
-	# os.path.isfile(name)
-	# shutil.copyfile(file, newfile)
-	# os.remove(file)
-	###########
-
-	# todo pointsdict
-
 	path = "overlays/"
 	obsOverlay = "currentoverlay"
-	shutil.copyfile(path + overlayNameToUse + ".png", path + obsOverlay + ".png")
-
-def changeToOverlayByHotkey(overlayName):
-	pass
+	shutil.copyfile(path + overlayName + ".png", path + obsOverlay + ".png")
 
 ##############################################################################
 # MOUSE & KB INPUT
 ##############################################################################
 
-# https://pyautogui.readthedocs.io/en/latest/cheatsheet.html
-# pyautogui.size()
-# pyautogui.position()
-# pyautogui.moveTo(x, y, duration=num_seconds)
-# pyautogui.dragTo(x, y, duration=num_seconds)
-# pyautogui.click()
-# pyautogui.click(x=moveToX, y=moveToY, clicks=num_of_clicks, interval=secs_between_clicks, button='left') middle right
-# pyautogui.rightClick(x=moveToX, y=moveToY)
-# pyautogui.middleClick(x=moveToX, y=moveToY)
-# pyautogui.doubleClick(x=moveToX, y=moveToY)
-# pyautogui.tripleClick(x=moveToX, y=moveToY)
-# pyautogui.scroll(amount_to_scroll, x=moveToX, y=moveToY)
-# pyautogui.moveRel(0, settings.window_addgame_rel)
-# pyautogui.mouseDown(x=moveToX, y=moveToY, button='left')
-# pyautogui.mouseUp(x=moveToX, y=moveToY, button='left')
-# ---
-# pyautogui.typewrite("")
-# pyautogui.KEYBOARD_KEYS
-# pyautogui.hotkey('ctrl', 'c')
-# pyautogui.keyDown(key_name)
-# pyautogui.keyUp(key_name)
-# pyautogui.press("enter")
+# https://pyautogui.readthedocs.io/en/latest/quickstart.html
 
 def hover(x, y):
 	pyautogui.moveTo(x, y)
@@ -124,9 +78,6 @@ def click(x, y):
 	time.sleep(0.1)
 	pyautogui.click(x, y)
 	time.sleep(globalSleepTime)
-	# win32api.SetCursorPos((x, y))
-	# win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x, y, 0, 0)
-	# win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
 
 def drag(x1, y1, x2, y2):
 	sleeptime = 0.1
@@ -136,15 +87,6 @@ def drag(x1, y1, x2, y2):
 	time.sleep(sleeptime)
 	pyautogui.mouseUp()
 	time.sleep(globalSleepTime)
-	# sleeptime = 0.05
-
-	# win32api.SetCursorPos((x1, y1))
-	# time.sleep(sleeptime)
-	# win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x1, y1, 0, 0)
-	# time.sleep(sleeptime)
-	# win32api.SetCursorPos((x2, y2))
-	# time.sleep(sleeptime)
-	# win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x2, y2, 0, 0)
 
 def press(key):
 	pyautogui.press(key)
@@ -162,8 +104,7 @@ def writeToIngameChat(message):
 # CHAT MESSAGE COMMANDS
 ##############################################################################
 
-def singleCommandStringSeperator(commandString):
-	# returns either a tuple or a string
+def singleCommandStringSeperator(commandString): # returns either a tuple or a string
 	patternString = r"^(?P<letters>[a-z]+)(?P<number>(\d+)?)$"
 	patternCompiled = re.compile(patternString)
 	match = patternCompiled.match(commandString)
@@ -189,25 +130,16 @@ def pointsFromCommands(commandParts, pointsDict):
 			if len(pointsList) > 1 and number <= len(pointsList) - 1:
 				return pointsList[number]
 
-def checkMessageAndExecuteCommandsDraftMouse(messageString, pointsDict):
-	message = messageString
-	patternDraft = r"^(\d+)$"
-	match = re.match(patternDraft, message)
-	if match:
-		pass
-
-def checkMessageAndExecuteCommandsMouse(messageString, pointsDict):
+def checkMessageAndExecuteCommands(messageString, pointsDict):
 	message = messageString.lower()
 
 	patternClick = r"^([a-z]+\d*)$"
 	patternHover = r"^\,([a-z]+\d*)$"
 	patternDrag = r"^([a-z]+\d*)\s+([a-z]+\d*)$"
-
 	patternScroll = r"^scroll(.)$"
 
 	match = re.match(patternScroll, message)
 	if match:
-
 		command = match.group(1)
 
 		direction = -1 # scroll down, scrollr
@@ -255,19 +187,3 @@ def checkMessageAndExecuteCommandsMouse(messageString, pointsDict):
 			x2, y2 = point2
 			drag(x1, y1, x2, y2)
 			return ((x1, y1), (x2, y2))
-
-def checkMessageAndExecuteCommands(messageString, pointsDict, mouseOrKeyboard="mouse"):
-	if mouseOrKeyboard == "mouse":
-		return checkMessageAndExecuteCommandsMouse(messageString, pointsDict)
-	# elif mouseOrKeyboard == "keyboard":
-	# 	checkMessageAndExecuteCommandsKeyboard(messageString)
-
-# def somethingsomethingKeyboard(messageString):
-# 	# todo commands max amount!
-# 	c = [
-# 		"up", "down", "left", "right",
-# 		"w", "a", "s", "d",
-# 	]
-
-# def checkMessageAndExecuteCommandsKeyboard(messageString):
-# 	pass
