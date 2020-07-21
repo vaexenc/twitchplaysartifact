@@ -9,7 +9,7 @@ class Twitch:
 	oauth = ""
 	s = None
 
-	def get_login_status(self, data):
+	def getLoginStatus(self, data):
 		if re.match(r'^:(testserver\.local|tmi\.twitch\.tv) NOTICE \* :Login authentication failed\r\n$'.encode("utf-8"), data):
 			return False
 		return True
@@ -20,10 +20,10 @@ class Twitch:
 		print("Connecting to twitch...")
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		s.settimeout(1)
-		connect_host = "irc.twitch.tv"
-		connect_port = 6667
+		connectHost = "irc.twitch.tv"
+		connectPort = 6667
 		try:
-			s.connect((connect_host, connect_port))
+			s.connect((connectHost, connectPort))
 		except Exception:
 			print("Failed to connect to twitch")
 			sys.exit()
@@ -33,7 +33,7 @@ class Twitch:
 		s.send(('PASS %s\r\n' % key).encode("utf-8"))
 		s.send(('NICK %s\r\n' % user).encode("utf-8"))
 
-		if not self.get_login_status(s.recv(1024)):
+		if not self.getLoginStatus(s.recv(1024)):
 			print("...and they didn't accept our details.")
 			sys.exit()
 		else:
@@ -42,22 +42,22 @@ class Twitch:
 			self.s = s
 			s.send(('JOIN #%s\r\n' % user).encode("utf-8"))
 
-	def check_has_message(self, data):
+	def checkHasMessage(self, data):
 		return re.match(r'^:[a-zA-Z0-9_]+\![a-zA-Z0-9_]+@[a-zA-Z0-9_]+(\.tmi\.twitch\.tv|\.testserver\.local) PRIVMSG #[a-zA-Z0-9_]+ :.+$'.encode("utf-8"), data)
 
-	def check_has_ping(self, data):
+	def checkHasPing(self, data):
 		if b'PING :tmi.twitch.tv\r\n' in data:
 			return True
 		return False
 
-	def parse_message(self, data):
+	def parseMessage(self, data):
 		return {
 			'channel': re.findall(r'^:.+\![a-zA-Z0-9_]+@[a-zA-Z0-9_]+.+ PRIVMSG (.*?) :'.encode("utf-8"), data)[0].decode(),
 			'username': re.findall(r'^:([a-zA-Z0-9_]+)\!'.encode("utf-8"), data)[0].decode(),
 			'message': re.findall(r'PRIVMSG #[a-zA-Z0-9_]+ :(.+)'.encode("utf-8"), data)[0].decode()
 		}
 
-	def receive_messages(self, amount=1024):
+	def receiveMessages(self, amount=1024):
 		data = None
 		try:
 			data = self.s.recv(1024)
@@ -69,16 +69,16 @@ class Twitch:
 			self.connect(self.user, self.oauth)
 			return None
 
-		if self.check_has_ping(data):
+		if self.checkHasPing(data):
 			self.s.send(("PONG :tmi.twitch.tv\r\n").encode("utf-8")) # b"PONG :tmi.twitch.tv\r\n" ???
 			return False
 
-		if self.check_has_message(data):
+		if self.checkHasMessage(data):
 			try:
-				return [self.parse_message(line) for line in filter(None, data.split('\r\n'.encode("utf-8")))]
+				return [self.parseMessage(line) for line in filter(None, data.split('\r\n'.encode("utf-8")))]
 			except Exception:
 				return False
 
-	def send_message(self, message):
+	def sendMessage(self, message):
 		sendValue = "PRIVMSG #{} :{}{}".format(self.user, message, "\r\n")
 		self.s.send(sendValue.encode("utf-8"))

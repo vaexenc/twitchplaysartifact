@@ -60,7 +60,7 @@ t = twitch.Twitch()
 def twitchThreadFunction():
 	global messageQueue
 	while 1:
-		newMessages = t.receive_messages()
+		newMessages = t.receiveMessages()
 		if newMessages:
 			messageQueue.put(newMessages)
 		time.sleep(0.001)
@@ -75,13 +75,13 @@ twitchThread.daemon = True
 print("### TWITCH PLAYS ARTIFACT ###")
 t.connect(username, key)
 twitchThread.start()
-t.send_message("[ ✔️ Manually starting script.]")
+t.sendMessage("[ ✔️ Manually starting script.]")
 screen.changeToOverlay("overlay")
 
 currentPointsDict = pointsDict
 
-def on_shutdown():
-	t.send_message("[ ❌ Manually shutting down script.]")
+def onShutdown():
+	t.sendMessage("[ ❌ Manually shutting down script.]")
 	time.sleep(1) # because message doesn't get sent otherwise?
 
 while 1:
@@ -95,16 +95,16 @@ while 1:
 			time.sleep(0.001)
 		time.sleep(0.001)
 	except KeyboardInterrupt:
-		on_shutdown()
+		onShutdown()
 		break
 	except pyautogui.FailSafeException:
 		print(traceback.format_exc())
-		on_shutdown()
+		onShutdown()
 		break
 	except Exception:
 		print("\n\n=====================================\n")
 		print(traceback.format_exc())
-		t.send_message("[ ❌❌❌ Shutting down script due to unexpected error.]")
+		t.sendMessage("[ ❌❌❌ Shutting down script due to unexpected error.]")
 		time.sleep(3)
 		break
 
