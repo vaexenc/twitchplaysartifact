@@ -4,11 +4,13 @@ Just a small project that allowed twitch users to type commands in stream chat t
 
 ## Videos
 
-As a side note, the stream ran during the glorious days of the [Artifact Twitch Raids](https://knowyourmeme.com/memes/events/artifact-twitch-raids) of 2019. Certain creative decisions have been made for the sake of people's entertainment and for a higher level of thumbnail clickbait.
+Side note: the stream ran during the glorious days of the [Artifact Twitch Raids](https://knowyourmeme.com/memes/events/artifact-twitch-raids) of 2019. Certain creative decisions have been made for the sake of people's entertainment and for higher thumbnail clickbait effectiveness.
 
-[VOD 1](#a) TODO
+[VOD 1](https://www.youtube.com/watch?v=M4yYAUVNsNg)
 
-[VOD 2](#a) TODO
+[VOD 2](https://www.youtube.com/watch?v=pW01kDX13Sk)
+
+[VOD 3](https://www.youtube.com/watch?v=9HLd2rYP1R4)
 
 ## Commands
 
